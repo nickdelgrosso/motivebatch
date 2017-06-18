@@ -25,7 +25,13 @@ for order in itertools.permutations('XYZ'):
 class Take(object):
 
     def __init__(self, fname):
-        self._take = NMotive.Take(fname)
+        takename = fname
+        if not path.split(takename)[0]:
+            takename = path.join('.', takename)
+        if not path.exists(takename):
+            raise IOError("FileNotFound: {}".format(takename))
+        self._take = NMotive.Take(takename)
+
 
     @property
     def fname(self):
