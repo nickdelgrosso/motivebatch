@@ -1,10 +1,17 @@
+import sys
+if not '64-bit' in sys.version:
+    raise SystemError("motivebatch requires IronPython 64-bit.  Try running with 'ipy64' instead.")
+
 import clr
+from os import path
 dll_path = r'C:\Program Files\OptiTrack\Motive\assemblies\x64\NMotive.dll'
+if not path.exists(dll_path):
+    raise SystemError("Cannot find required dll file: {}".format(dll_path))
 clr.AddReferenceToFileAndPath(dll_path)
 import NMotive
 
 import itertools
-from os import path
+
 
 Meters = NMotive.LengthUnits.Units_Meters
 Centimeters = NMotive.LengthUnits.Units_Centimeters
